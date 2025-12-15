@@ -1,0 +1,69 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 1. The User (Handles both You and Students)
+model User {
+  id          String  @id @default(uuid())
+  email       String  @unique
+  name        String?
+  imageUrl    String?
+  clerkUserId String  @unique // Links to Clerk Auth
+  role        String  @default("student") // 'coach' or 'student'
+
+  // Game Stats
+  username   String?
+  rank       String?  @default("Unranked")
+  mainAgents String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  roadmaps Roadmap[]
+  sessions Session[]
+}
+
+// 2. The Roadmap (A plan assigned to a student)
+model Roadmap {
+  id     String @id @default(uuid())
+  title  String // e.g. "Road to Diamond"
+  status String @default("active") // 'active', 'completed', 'archived'
+
+  studentId String
+  student   User   @relation(fields: [studentId], references: [id])
+
+  tasks RoadmapTask[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 3. The Tasks (Individual checkboxes in a roadmap)
+model RoadmapTask {
+  id          String  @id @default(uuid())
+  title       String // e.g. "Practice Strafing"
+  description String? // Optional details or links
+  isCompleted Boolean @default(false)
+
+  roadmapId String
+  roadmap   Roadmap @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+}
+
+// 4. Sessions (Replaces VODs - The history of your coaching)
+model Session {
+  id      String   @id @default(uuid())
+  date    DateTime @default(now())
+  notes   String? // Your feedback goes here
+  vodLink String? // YouTube/Medal link
+
+  studentId String
+  student   User   @relation(fields: [studentId], references: [id])
+}
