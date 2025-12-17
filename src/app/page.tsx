@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/db";
 import { redirect } from "next/navigation";
-import Link from "next/link";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 
 export default async function Home() {
   // 1. Check if user is logged in via Clerk
@@ -30,18 +30,16 @@ export default async function Home() {
       <p className="text-xl text-gray-400 mb-8">Track your road to Immortal.</p>
 
       <div className="flex gap-4">
-        <Link
-          href="/sign-in"
-          className="px-6 py-3 bg-red-600 rounded-lg hover:bg-red-700 font-bold transition"
-        >
-          Login
-        </Link>
-        <Link
-          href="/sign-up"
-          className="px-6 py-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition"
-        >
-          Apply Now
-        </Link>
+        <SignInButton>
+          <button className="px-6 py-3 bg-red-600 rounded-lg hover:bg-red-700 font-bold transition">
+            Login
+          </button>
+        </SignInButton>
+        <SignUpButton>
+          <button className="px-6 py-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition">
+            Apply Now
+          </button>
+        </SignUpButton>
       </div>
     </div>
   );

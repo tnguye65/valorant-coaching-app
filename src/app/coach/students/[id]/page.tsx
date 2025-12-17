@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Plus, CheckCircle2, Circle } from "lucide-react";
-import { CreateRoadmapDialog } from "@/components/CreateRoadmapDialog";
+import { ArrowLeft, Plus } from "lucide-react";
+import { RoadmapList } from "@/components/roadmap/RoadmapList";
 
 export default async function StudentPage({
   params,
@@ -74,8 +74,8 @@ export default async function StudentPage({
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <p className="text-sm text-gray-500">Gamertag</p>
-              <p className="font-semibold">{student.gamertag || "Not set"}</p>
+              <p className="text-sm text-gray-500">Username</p>
+              <p className="font-semibold">{student.username || "Not set"}</p>
             </div>
             <div>
               <p className="text-sm text-gray-500">Current Rank</p>
@@ -100,98 +100,14 @@ export default async function StudentPage({
       </Card>
 
       {/* Roadmaps Section */}
-      <Card className="mb-8">
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Roadmaps</CardTitle>
-          <CreateRoadmapDialog studentId={student.id} />
-        </CardHeader>
-        <CardContent>
-          {student.roadmaps && student.roadmaps.length > 0 ? (
-            <div className="space-y-4">
-              {student.roadmaps.map((roadmap) => {
-                const completedTasks = roadmap.tasks.filter(
-                  (t) => t.isCompleted
-                ).length;
-                const totalTasks = roadmap.tasks.length;
-                const progress =
-                  totalTasks > 0
-                    ? Math.round((completedTasks / totalTasks) * 100)
-                    : 0;
-
-                return (
-                  <div key={roadmap.id} className="border rounded-lg p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="font-semibold text-lg">
-                          {roadmap.title}
-                        </h3>
-                        <p className="text-sm text-gray-500">
-                          {completedTasks} of {totalTasks} tasks completed (
-                          {progress}%)
-                        </p>
-                      </div>
-                      <Badge
-                        variant={
-                          roadmap.status === "active" ? "default" : "secondary"
-                        }
-                      >
-                        {roadmap.status}
-                      </Badge>
-                    </div>
-
-                    {/* Task List */}
-                    {roadmap.tasks.length > 0 ? (
-                      <div className="space-y-2">
-                        {roadmap.tasks.map((task) => (
-                          <div
-                            key={task.id}
-                            className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded"
-                          >
-                            {task.isCompleted ? (
-                              <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 shrink-0" />
-                            ) : (
-                              <Circle className="h-5 w-5 text-gray-400 mt-0.5 shrink-0" />
-                            )}
-                            <div className="flex-1">
-                              <p
-                                className={
-                                  task.isCompleted
-                                    ? "line-through text-gray-500"
-                                    : ""
-                                }
-                              >
-                                {task.title}
-                              </p>
-                              {task.description && (
-                                <p className="text-sm text-gray-500 mt-1">
-                                  {task.description}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-gray-400">No tasks yet</p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <p className="text-gray-400">
-              No roadmaps created yet. Create one to get started!
-            </p>
-          )}
-        </CardContent>
-      </Card>
+      <RoadmapList roadmaps={student.roadmaps} studentId={student.id} />
 
       {/* Sessions Section */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Coaching Sessions</CardTitle>
           <Button>
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus />
             Add Session
           </Button>
         </CardHeader>

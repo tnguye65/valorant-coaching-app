@@ -11,30 +11,52 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus } from "lucide-react";
-import { createRoadmap } from "@/services/roadmap";
+import { SquarePen } from "lucide-react";
+import { updateRoadmap } from "@/services/roadmap";
 
-export function CreateRoadmapDialog({ studentId }: { studentId: string }) {
+export function EditRoadmapDialog({
+  roadmapId,
+  studentId,
+}: {
+  roadmapId: string;
+  studentId: string;
+}) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [status, setStatus] = useState("active");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!title.trim()) return;
+    if (!title.trim() || !status.trim()) return;
 
     setIsSubmitting(true);
-    const result = await createRoadmap(studentId, title.trim());
+    const result = await updateRoadmap(
+      roadmapId,
+      title.trim(),
+      status.trim(),
+      studentId
+    );
     setIsSubmitting(false);
 
     if (result.success) {
       setTitle("");
+      setStatus("active");
       setOpen(false);
     } else {
-      alert("Failed to create roadmap. Please try again.");
+      alert("Failed to update roadmap. Please try again.");
     }
   };
 
@@ -42,17 +64,17 @@ export function CreateRoadmapDialog({ studentId }: { studentId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          Create Roadmap
+          <SquarePen />
+          Edit Roadmap
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Create New Roadmap</DialogTitle>
+            <DialogTitle>Edit Roadmap</DialogTitle>
             <DialogDescription>
-              Create a new training roadmap for this student. You can add tasks
-              later.
+              Edit the training roadmap for this student. You can update the
+              title and status.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -66,6 +88,22 @@ export function CreateRoadmapDialog({ studentId }: { studentId: string }) {
                 required
               />
             </div>
+            <div className="grid gap-2">
+              <Label htmlFor="status">Roadmap Status</Label>
+              <Select value={status} onValueChange={setStatus}>
+                <SelectTrigger id="status">
+                  <SelectValue placeholder="Select status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Status</SelectLabel>
+                    <SelectItem value="active">Active</SelectItem>
+                    <SelectItem value="completed">Completed</SelectItem>
+                    <SelectItem value="paused">Paused</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <DialogFooter>
             <Button
@@ -77,7 +115,7 @@ export function CreateRoadmapDialog({ studentId }: { studentId: string }) {
               Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Creating..." : "Create Roadmap"}
+              {isSubmitting ? "Updating..." : "Update Roadmap"}
             </Button>
           </DialogFooter>
         </form>

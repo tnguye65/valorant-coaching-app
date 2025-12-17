@@ -38,10 +38,37 @@ export async function deleteRoadmap(roadmapId: string, studentId: string) {
   }
 }
 
-export async function addTaskToRoadmap(roadmapId: string, description: string) {
+export async function updateRoadmap(
+  roadmapId: string,
+  title: string,
+  status: string,
+  studentId: string
+) {
   try {
-    const task = await prisma.task.create({
+    const updatedRoadmap = await prisma.roadmap.update({
+      where: { id: roadmapId },
+      data: { title, status },
+    });
+
+    // Revalidate the student page to reflect the updated roadmap
+    revalidatePath(`/coach/student/${studentId}`);
+
+    return { success: true, roadmap: updatedRoadmap };
+  } catch (error) {
+    console.error("Failed to update roadmap:", error);
+    return { success: false, error: "Failed to update roadmap" };
+  }
+}
+
+export async function addTaskToRoadmap(
+  roadmapId: string,
+  title: string,
+  description: string
+) {
+  try {
+    const task = await prisma.roadmapTask.create({
       data: {
+        title,
         description,
         isCompleted: false,
         roadmapId,
@@ -66,7 +93,7 @@ export async function addTaskToRoadmap(roadmapId: string, description: string) {
 
 export async function toggleTaskCompletion(taskId: string, studentId: string) {
   try {
-    const task = await prisma.task.findUnique({
+    const task = await prisma.roadmapTask.findUnique({
       where: { id: taskId },
     });
 
@@ -74,7 +101,7 @@ export async function toggleTaskCompletion(taskId: string, studentId: string) {
       return { success: false, error: "Task not found" };
     }
 
-    const updatedTask = await prisma.task.update({
+    const updatedTask = await prisma.roadmapTask.update({
       where: { id: taskId },
       data: { isCompleted: !task.isCompleted },
     });
@@ -91,7 +118,7 @@ export async function toggleTaskCompletion(taskId: string, studentId: string) {
 
 export async function deleteTask(taskId: string, studentId: string) {
   try {
-    await prisma.task.delete({
+    await prisma.roadmapTask.delete({
       where: { id: taskId },
     });
 
@@ -102,5 +129,27 @@ export async function deleteTask(taskId: string, studentId: string) {
   } catch (error) {
     console.error("Failed to delete task:", error);
     return { success: false, error: "Failed to delete task" };
+  }
+}
+
+export async function updateTask(
+  taskId: string,
+  title: string,
+  description: string,
+  studentId: string
+) {
+  try {
+    const updatedTask = await prisma.roadmapTask.update({
+      where: { id: taskId },
+      data: { title, description },
+    });
+
+    // Revalidate the student page to reflect the updated task
+    revalidatePath(`/coach/student/${studentId}`);
+
+    return { success: true, task: updatedTask };
+  } catch (error) {
+    console.error("Failed to update task:", error);
+    return { success: false, error: "Failed to update task" };
   }
 }
