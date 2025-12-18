@@ -22,7 +22,7 @@ type Task = {
   isCompleted: boolean;
 };
 
-export function TaskList({
+export function CoachTaskList({
   tasks,
   studentId,
   onToggle,

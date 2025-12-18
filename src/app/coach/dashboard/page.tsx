@@ -29,7 +29,7 @@ export default async function CoachDashboard() {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h2 className="text-xl font-bold text-gray-800">
-                    {student.username || "Unknown Player"}
+                    {student.gamertag || "Unknown Player"}
                   </h2>
                   <p className="text-sm text-gray-500">{student.email}</p>
                 </div>
@@ -43,7 +43,7 @@ export default async function CoachDashboard() {
                   href={`/coach/students/${student.id}`}
                   className="block w-full text-center py-2 bg-neutral-900 text-white rounded-lg hover:bg-neutral-700 transition"
                 >
-                  Manage Roadmap →
+                  Manage Student →
                 </Link>
               </div>
             </div>

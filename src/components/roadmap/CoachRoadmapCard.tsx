@@ -3,7 +3,7 @@
 import { EditRoadmapDialog } from "@/components/roadmap/EditRoadmapDialog";
 import { DeleteRoadmapDialog } from "@/components/roadmap/DeleteRoadmapDialog";
 import { AddTaskDialog } from "@/components/task/AddTaskDialog";
-import { TaskList } from "@/components/task/TaskList";
+import { CoachTaskList } from "@/components/task/CoachTaskList";
 import { useOptimistic, useTransition } from "react";
 import { toggleTaskCompletion, deleteTask } from "@/services/roadmap";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +22,7 @@ type Roadmap = {
   tasks: Task[];
 };
 
-export function RoadmapCard({
+export function CoachRoadmapCard({
   roadmap,
   studentId,
 }: {
@@ -93,7 +93,7 @@ export function RoadmapCard({
         </div>
       </div>
 
-      <TaskList
+      <CoachTaskList
         tasks={optimisticTasks}
         studentId={studentId}
         onToggle={handleToggle}

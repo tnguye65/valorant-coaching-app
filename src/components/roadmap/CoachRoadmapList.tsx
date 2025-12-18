@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreateRoadmapDialog } from "@/components/roadmap/CreateRoadmapDialog";
-import { RoadmapCard } from "@/components/roadmap/RoadmapCard";
+import { CoachRoadmapCard } from "@/components/roadmap/CoachRoadmapCard";
 
 type Task = {
   id: string;
@@ -15,7 +15,7 @@ type Roadmap = {
   tasks: Task[];
 };
 
-export function RoadmapList({
+export function CoachRoadmapList({
   roadmaps,
   studentId,
 }: {
@@ -32,7 +32,7 @@ export function RoadmapList({
         {roadmaps && roadmaps.length > 0 ? (
           <div className="space-y-4">
             {roadmaps.map((roadmap) => (
-              <RoadmapCard
+              <CoachRoadmapCard
                 key={roadmap.id}
                 roadmap={roadmap}
                 studentId={studentId}

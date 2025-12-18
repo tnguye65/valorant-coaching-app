@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Plus } from "lucide-react";
-import { RoadmapList } from "@/components/roadmap/RoadmapList";
+import { CoachRoadmapList } from "@/components/roadmap/CoachRoadmapList";
+import { EditStudentSettings } from "@/components/user/EditStudentSettings";
 
 export default async function StudentPage({
   params,
@@ -52,7 +53,7 @@ export default async function StudentPage({
         {student.imageUrl && (
           <Image
             src={student.imageUrl}
-            alt={student.username || "Student"}
+            alt={student.gamertag || "Student"}
             width={80}
             height={80}
             className="rounded-full"
@@ -60,7 +61,7 @@ export default async function StudentPage({
         )}
         <div className="flex-1">
           <h1 className="text-3xl font-bold">
-            {student.username || "Unknown Player"}
+            {student.gamertag || "Unknown Player"}
           </h1>
           <p className="text-gray-600">{student.email}</p>
         </div>
@@ -68,14 +69,20 @@ export default async function StudentPage({
 
       {/* Student Info Card */}
       <Card className="mb-8">
-        <CardHeader>
+        <CardHeader className="flex justify-between items-center">
           <CardTitle>Player Information</CardTitle>
+          <EditStudentSettings
+            studentId={student.id}
+            currentGamertag={student.gamertag || ""}
+            currentRank={student.rank || ""}
+            currentMainAgents={student.mainAgents || []}
+          />
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-between">
             <div>
-              <p className="text-sm text-gray-500">Username</p>
-              <p className="font-semibold">{student.username || "Not set"}</p>
+              <p className="text-sm text-gray-500">Gamertag</p>
+              <p className="font-semibold">{student.gamertag || "Not set"}</p>
             </div>
             <div>
               <p className="text-sm text-gray-500">Current Rank</p>
@@ -100,7 +107,7 @@ export default async function StudentPage({
       </Card>
 
       {/* Roadmaps Section */}
-      <RoadmapList roadmaps={student.roadmaps} studentId={student.id} />
+      <CoachRoadmapList roadmaps={student.roadmaps} studentId={student.id} />
 
       {/* Sessions Section */}
       <Card>

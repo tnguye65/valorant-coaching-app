@@ -58,7 +58,7 @@ export async function POST(req: Request) {
   //   console.log("Webhook body:", body);
 
   if (evt.type === "user.created") {
-    const { id, email_addresses, first_name, image_url, username } = evt.data;
+    const { id, email_addresses, first_name, image_url } = evt.data;
     try {
       const newUser = await prisma.user.create({
         data: {
@@ -66,7 +66,6 @@ export async function POST(req: Request) {
           email: email_addresses[0]?.email_address || null,
           name: first_name || null,
           imageUrl: image_url || null,
-          username: username || null,
         },
       });
       return new Response(JSON.stringify(newUser), { status: 201 });

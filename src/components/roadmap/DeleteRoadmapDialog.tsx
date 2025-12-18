@@ -24,7 +24,7 @@ export function DeleteRoadmapDialog({
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleDelete = async (e: React.FormEvent) => {
+  const handleDelete = async () => {
     setIsSubmitting(true);
     const result = await deleteRoadmap(roadmapId, studentId);
     setIsSubmitting(false);
