@@ -52,7 +52,7 @@ export function CoachRoadmapCard({
   const handleDelete = async (taskId: string) => {
     startTransition(async () => {
       // Set optimistic state to remove the task immediately
-      setOptimisticTasks({ type: "delete", id: taskId });
+      setOptimisticTasks(taskId);
       const result = await deleteTask(taskId, studentId);
       if (!result.success) {
         alert("Failed to delete task");

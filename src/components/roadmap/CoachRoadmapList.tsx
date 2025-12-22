@@ -12,6 +12,7 @@ type Task = {
 type Roadmap = {
   id: string;
   title: string;
+  status: string;
   tasks: Task[];
 };
 

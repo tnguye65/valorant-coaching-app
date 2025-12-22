@@ -58,7 +58,7 @@ export function EditSessionDialog({
     setIsSubmitting(false);
 
     if (result.success) {
-      setDate(undefined);
+      setDate(currentDate);
       setNotes("");
       setVodLink("");
       setOpen(false);
@@ -105,6 +105,7 @@ export function EditSessionDialog({
                     selected={date}
                     captionLayout="dropdown"
                     onSelect={setDate}
+                    required
                   />
                 </PopoverContent>
               </Popover>

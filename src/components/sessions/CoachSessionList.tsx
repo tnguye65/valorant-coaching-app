@@ -26,7 +26,11 @@ export function CoachSessionList({
         {sessions && sessions.length > 0 ? (
           <div className="space-y-4">
             {sessions.map((session) => (
-              <CoachSessionCard key={session.id} session={session} />
+              <CoachSessionCard
+                key={session.id}
+                session={session}
+                studentId={studentId}
+              />
             ))}
           </div>
         ) : (
