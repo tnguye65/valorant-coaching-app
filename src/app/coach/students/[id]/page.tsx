@@ -4,8 +4,9 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { CoachRoadmapList } from "@/components/roadmap/CoachRoadmapList";
+import { CoachSessionList } from "@/components/sessions/CoachSessionList";
 import { EditStudentSettings } from "@/components/user/EditStudentSettings";
 
 export default async function StudentPage({
@@ -110,56 +111,7 @@ export default async function StudentPage({
       <CoachRoadmapList roadmaps={student.roadmaps} studentId={student.id} />
 
       {/* Sessions Section */}
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Coaching Sessions</CardTitle>
-          <Button>
-            <Plus />
-            Add Session
-          </Button>
-        </CardHeader>
-        <CardContent>
-          {student.sessions && student.sessions.length > 0 ? (
-            <div className="space-y-4">
-              {student.sessions.map((session) => (
-                <div key={session.id} className="border rounded-lg p-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <p className="font-semibold">
-                      {new Date(session.date).toLocaleDateString("en-US", {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
-                    {session.vodLink && (
-                      <a
-                        href={session.vodLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-blue-600 hover:underline"
-                      >
-                        View VOD
-                      </a>
-                    )}
-                  </div>
-                  {session.notes ? (
-                    <p className="text-gray-700 whitespace-pre-wrap">
-                      {session.notes}
-                    </p>
-                  ) : (
-                    <p className="text-gray-400 text-sm">
-                      No notes for this session
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-400">No coaching sessions recorded yet.</p>
-          )}
-        </CardContent>
-      </Card>
+      <CoachSessionList sessions={student.sessions} studentId={student.id} />
     </div>
   );
 }

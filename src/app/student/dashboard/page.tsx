@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { StudentRoadmapList } from "@/components/roadmap/StudentRoadmapList";
+import { StudentSessionList } from "@/components/sessions/StudentSessionList";
 import { Settings } from "lucide-react";
 
 export default async function StudentDashboard() {
@@ -101,6 +102,9 @@ export default async function StudentDashboard() {
       </Card>
 
       <StudentRoadmapList roadmaps={student.roadmaps} studentId={student.id} />
+
+      {/* Sessions Section */}
+      <StudentSessionList sessions={student.sessions} studentId={student.id} />
     </div>
   );
 }

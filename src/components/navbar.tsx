@@ -3,10 +3,10 @@ import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
 
 export default function Navbar() {
   return (
-    <div className="bg-gray-800 shadow-lg">
+    <div className="bg-gray-900 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-xl font-bold">
+          <Link href="/" className="text-xl font-bold text-red-500">
             Valorant Coach App
           </Link>
 

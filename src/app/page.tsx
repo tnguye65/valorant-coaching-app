@@ -27,7 +27,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white">
       <h1 className="text-6xl font-bold mb-4 text-red-500">VALORANT COACH</h1>
-      <p className="text-xl text-gray-400 mb-8">Track your road to Immortal.</p>
+      <p className="text-xl text-gray-400 mb-8">Track your rank up progress.</p>
 
       <div className="flex gap-4">
         <SignInButton>
