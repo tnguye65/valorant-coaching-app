@@ -63,9 +63,9 @@ export async function POST(req: Request) {
       const newUser = await prisma.user.create({
         data: {
           clerkUserId: id,
-          email: email_addresses[0]?.email_address || null,
-          name: first_name || null,
-          imageUrl: image_url || null,
+          email: email_addresses[0]?.email_address || "",
+          name: first_name || "",
+          imageUrl: image_url || "",
         },
       });
       return new Response(JSON.stringify(newUser), { status: 201 });
