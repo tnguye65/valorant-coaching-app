@@ -4,6 +4,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -59,11 +63,33 @@ model RoadmapTask {
 
 // 4. Sessions (Replaces VODs - The history of your coaching)
 model Session {
-  id      String   @id @default(uuid())
-  date    DateTime @default(now())
-  notes   String? // Your feedback goes here
-  vodLink String? // YouTube/Medal link
+  id     String @id @default(uuid())
+  status String @default("pending") // 'pending', 'completed', 'canceled'
+  title  String // Optional title for the session
 
+  // VOD review details
+  vodLink String // YouTube/Medal link
+
+  agent String // Agent focused on during the session
+  map   String // Map focused on during the session
+
+  // Timestamped questions from students
+  sessionNotes Note[]
+
+  date      DateTime @default(now())
   studentId String
-  student   User   @relation(fields: [studentId], references: [id])
+  student   User     @relation(fields: [studentId], references: [id])
+}
+
+model Note {
+  id String @id @default(uuid())
+
+  // Students set timestamped questions for coaches to answer later
+  timestamp Int
+  question  String
+  answer    String?
+
+  // New: Link back to the Session
+  sessionId String
+  session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }

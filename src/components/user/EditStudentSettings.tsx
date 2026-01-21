@@ -128,26 +128,36 @@ export function EditStudentSettings({
                 </MultiSelectTrigger>
                 <MultiSelectContent>
                   <MultiSelectGroup>
-                    <MultiSelectItem value="Jett">Jett</MultiSelectItem>
-                    <MultiSelectItem value="Sova">Sova</MultiSelectItem>
-                    <MultiSelectItem value="Raze">Raze</MultiSelectItem>
-                    <MultiSelectItem value="Sage">Sage</MultiSelectItem>
-                    <MultiSelectItem value="Phoenix">Phoenix</MultiSelectItem>
-                    <MultiSelectItem value="Viper">Viper</MultiSelectItem>
-                    <MultiSelectItem value="Cypher">Cypher</MultiSelectItem>
+                    <MultiSelectItem value="Astra">Astra</MultiSelectItem>
+                    <MultiSelectItem value="Breach">Breach</MultiSelectItem>
                     <MultiSelectItem value="Brimstone">
                       Brimstone
                     </MultiSelectItem>
-                    <MultiSelectItem value="Omen">Omen</MultiSelectItem>
-                    <MultiSelectItem value="Killjoy">Killjoy</MultiSelectItem>
-                    <MultiSelectItem value="Skye">Skye</MultiSelectItem>
-                    <MultiSelectItem value="Yoru">Yoru</MultiSelectItem>
-                    <MultiSelectItem value="Astra">Astra</MultiSelectItem>
-                    <MultiSelectItem value="KAY/O">KAY/O</MultiSelectItem>
                     <MultiSelectItem value="Chamber">Chamber</MultiSelectItem>
-                    <MultiSelectItem value="Neon">Neon</MultiSelectItem>
+                    <MultiSelectItem value="Clove">Clove</MultiSelectItem>
+                    <MultiSelectItem value="Cypher">Cypher</MultiSelectItem>
+                    <MultiSelectItem value="Deadlock">Deadlock</MultiSelectItem>
                     <MultiSelectItem value="Fade">Fade</MultiSelectItem>
+                    <MultiSelectItem value="Gekko">Gekko</MultiSelectItem>
                     <MultiSelectItem value="Harbor">Harbor</MultiSelectItem>
+                    <MultiSelectItem value="Iso">Iso</MultiSelectItem>
+                    <MultiSelectItem value="Jett">Jett</MultiSelectItem>
+                    <MultiSelectItem value="KAY/O">KAY/O</MultiSelectItem>
+                    <MultiSelectItem value="Killjoy">Killjoy</MultiSelectItem>
+                    <MultiSelectItem value="Neon">Neon</MultiSelectItem>
+                    <MultiSelectItem value="Omen">Omen</MultiSelectItem>
+                    <MultiSelectItem value="Phoenix">Phoenix</MultiSelectItem>
+                    <MultiSelectItem value="Raze">Raze</MultiSelectItem>
+                    <MultiSelectItem value="Reyna">Reyna</MultiSelectItem>
+                    <MultiSelectItem value="Sage">Sage</MultiSelectItem>
+                    <MultiSelectItem value="Skye">Skye</MultiSelectItem>
+                    <MultiSelectItem value="Sova">Sova</MultiSelectItem>
+                    <MultiSelectItem value="Tejo">Tejo</MultiSelectItem>
+                    <MultiSelectItem value="Veto">Veto</MultiSelectItem>
+                    <MultiSelectItem value="Viper">Viper</MultiSelectItem>
+                    <MultiSelectItem value="Vyse">Vyse</MultiSelectItem>
+                    <MultiSelectItem value="Waylay">Waylay</MultiSelectItem>
+                    <MultiSelectItem value="Yoru">Yoru</MultiSelectItem>
                   </MultiSelectGroup>
                 </MultiSelectContent>
               </MultiSelect>

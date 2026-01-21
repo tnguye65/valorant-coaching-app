@@ -23,9 +23,11 @@
     "date-fns": "^4.1.0",
     "lucide-react": "^0.561.0",
     "next": "^16.0.10",
+    "prisma-json-types-generator": "^3.6.2",
     "react": "19.2.1",
     "react-day-picker": "^9.13.0",
     "react-dom": "19.2.1",
+    "react-player": "^3.4.0",
     "svix": "^1.82.0",
     "tailwind-merge": "^3.4.0"
   },

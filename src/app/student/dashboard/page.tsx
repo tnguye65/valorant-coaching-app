@@ -104,7 +104,7 @@ export default async function StudentDashboard() {
       <StudentRoadmapList roadmaps={student.roadmaps} studentId={student.id} />
 
       {/* Sessions Section */}
-      <StudentSessionList sessions={student.sessions} />
+      <StudentSessionList sessions={student.sessions} studentId={student.id} />
     </div>
   );
 }

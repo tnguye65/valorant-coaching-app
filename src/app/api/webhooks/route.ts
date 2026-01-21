@@ -75,5 +75,39 @@ export async function POST(req: Request) {
     }
   }
 
+  if (evt.type === "user.deleted") {
+    const { id } = evt.data;
+    try {
+      await prisma.user.delete({
+        where: {
+          clerkUserId: id,
+        },
+      });
+    } catch (error) {
+      console.error("Error deleting user from database:", error);
+      return new Response("Error deleting user", { status: 500 });
+    }
+  }
+
+  if (evt.type === "user.updated") {
+    const { id, email_addresses, first_name, image_url } = evt.data;
+    try {
+      const updatedUser = await prisma.user.update({
+        where: {
+          clerkUserId: id,
+        },
+        data: {
+          email: email_addresses[0]?.email_address || "",
+          name: first_name || "",
+          imageUrl: image_url || "",
+        },
+      });
+      return new Response(JSON.stringify(updatedUser), { status: 200 });
+    } catch (error) {
+      console.error("Error updating user in database:", error);
+      return new Response("Error updating user", { status: 500 });
+    }
+  }
+
   return new Response("Webhook processed successfully", { status: 200 });
 }

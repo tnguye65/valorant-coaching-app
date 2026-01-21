@@ -6,15 +6,19 @@ import { revalidatePath } from "next/cache";
 export async function createSession(
   studentId: string,
   date: Date,
-  notes?: string,
-  vodLink?: string
+  agent: string,
+  map: string,
+  vodLink: string,
+  title: string
 ) {
   try {
     const session = await prisma.session.create({
       data: {
         studentId,
         date,
-        notes,
+        agent,
+        map,
+        title,
         vodLink,
       },
     });

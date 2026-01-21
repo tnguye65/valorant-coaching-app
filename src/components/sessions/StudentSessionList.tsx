@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StudentSessionCard } from "@/components/sessions/StudentSessionCard";
+import { CreateSessionDialog } from "@/components/sessions/CreateSessionDialog";
 
 type Session = {
   id: string;
@@ -8,11 +9,18 @@ type Session = {
   vodLink: string | null;
 };
 
-export function StudentSessionList({ sessions }: { sessions: Session[] }) {
+export function StudentSessionList({
+  sessions,
+  studentId,
+}: {
+  sessions: Session[];
+  studentId: string;
+}) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Coaching Sessions</CardTitle>
+        <CreateSessionDialog studentId={studentId} />
       </CardHeader>
       <CardContent>
         {sessions && sessions.length > 0 ? (

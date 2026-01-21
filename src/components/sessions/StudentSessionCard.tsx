@@ -1,42 +1,33 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
 type Session = {
   id: string;
   date: Date;
-  notes: string | null;
-  vodLink: string | null;
+  vodLink: string;
 };
 
 export function StudentSessionCard({ session }: { session: Session }) {
   return (
     <div className="border rounded-lg p-4">
       <div className="flex items-start justify-between mb-2">
-        <p className="font-semibold">
-          {new Date(session.date).toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </p>
-      </div>
-      <div className="mt-3 space-y-2">
-        {session.notes ? (
-          <p className="text-gray-700 whitespace-pre-wrap">{session.notes}</p>
-        ) : (
-          <p className="text-gray-400 text-sm">No notes for this session</p>
-        )}
+        <div>
+          <h1 className="font-semibold">{session.title}</h1>
+          <p className="font-normal text-sm text-gray-600">
+            {new Date(session.date).toLocaleDateString("en-US", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+          <p className="mt-1 text-sm text-gray-700">Agent: {session.agent}</p>
+          <p className="text-sm text-gray-700">Map: {session.map}</p>
+        </div>
 
-        {session.vodLink ? (
-          <a
-            href={session.vodLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-blue-600 hover:underline"
-          >
-            View VOD
-          </a>
-        ) : (
-          <p className="text-gray-400 text-sm">No VOD link provided</p>
-        )}
+        <Link href={`/student/sessions/${session.id}`} key={session.id}>
+          <ArrowRight className="h-5 w-5 text-gray-400"></ArrowRight>
+        </Link>
       </div>
     </div>
   );

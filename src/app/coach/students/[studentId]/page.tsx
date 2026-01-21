@@ -12,13 +12,13 @@ import { EditStudentSettings } from "@/components/user/EditStudentSettings";
 export default async function StudentPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ studentId: string }>;
 }) {
-  const { id } = await params;
+  const { studentId } = await params;
 
   // Fetch student with all related data
   const student = await prisma.user.findUnique({
-    where: { id },
+    where: { id: studentId },
     include: {
       roadmaps: {
         include: { tasks: true },
